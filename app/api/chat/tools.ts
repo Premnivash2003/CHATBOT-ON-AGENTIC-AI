@@ -1,29 +1,52 @@
 import { tool } from 'ai';
 import { z } from 'zod';
 
-//TODO TASK 2 - Tool Calling
-// Define your tools here. Each tool has a description, parameters (using Zod), and an execute function.
-// The model decides when to call a tool based on the user's message.
-
 export const weatherTool = tool({
-  description: 'Get the current weather for a given city',
-  parameters: z.object({
+  description: 'Get the weather for a city',
+
+  inputSchema: z.object({
     city: z.string().describe('The city to get weather for'),
   }),
+
   execute: async ({ city }) => {
-    // Replace with a real API call in production
     const mockWeather: Record<string, { temp: number; condition: string }> = {
       london: { temp: 12, condition: 'Cloudy' },
-      tokyo: { temp: 22, condition: 'Sunny' },
-      'new york': { temp: 18, condition: 'Partly cloudy' },
+      paris: { temp: 18, condition: 'Sunny' },
+      newyork: { temp: 22, condition: 'Rainy' },
     };
-    const data = mockWeather[city.toLowerCase()] ?? { temp: 20, condition: 'Unknown' };
-    return { city, temperature: data.temp, condition: data.condition };
+
+    const weather =
+      mockWeather[city.toLowerCase()] || {
+        temp: 25,
+        condition: 'Sunny',
+      };
+
+    return {
+      city,
+      temperature: weather.temp,
+      condition: weather.condition,
+    };
   },
 });
 
-// Add more tools here and export them in the toolSet below
+export const calculatorTool = tool({
+  description: 'Perform a basic math calculation',
+
+  inputSchema: z.object({
+    expression: z.string().describe('Math expression to evaluate'),
+  }),
+
+  execute: async ({ expression }) => {
+    try {
+      const result = eval(expression);
+      return { result };
+    } catch {
+      return { error: 'Invalid expression' };
+    }
+  },
+});
 
 export const tools = {
-  getWeather: weatherTool,
+  weatherTool,
+  calculatorTool,
 };
