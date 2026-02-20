@@ -11,7 +11,7 @@ export default function Chat() {
   const isLoading = status === 'streaming' || status === 'submitted';
 
   return (
-    <div className="flex flex-col h-dvh max-w-2xl mx-auto">
+    <div className="flex flex-col h-dvh max-w-7xl mx-auto bg-green-100">
       <header className="p-4 text-center text-sm font-medium border-b border-zinc-200 dark:border-zinc-800">
         AI Chat
       </header>

@@ -20,7 +20,7 @@ export default function MessageList({ messages }: { messages: UIMessage[] }) {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-3">
+    <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-blue-100">
       {messages.map(m => (
         <ChatMessage key={m.id} message={m} />
       ))}

@@ -9,7 +9,7 @@ export default function ChatMessage({ message }: { message: UIMessage }) {
     .join('');
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex ${isUser ? 'justify-end bg-red-100' : 'justify-start'}`}>
       <div
         className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
           isUser
